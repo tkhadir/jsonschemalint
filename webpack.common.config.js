@@ -7,6 +7,16 @@ var WebpackMd5Hash = require('webpack-md5-hash');
 var ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 var path = require('path');
 
+var babelOptions = {
+  presets: [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions"]
+      }
+    }]
+  ]
+};
+
 module.exports = {
   cache: true,
   entry: {
@@ -35,20 +45,28 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.tsx?$/, loader: ['babel-loader', 'ts-loader'] },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: babelOptions
+          },
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      },
       {
         test: /\.js?$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
-          presets: [
-            ['env', {
-              'targets': {
-                'browsers': ['last 2 versions']
-              }
-            }]
-          ]
-        }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: babelOptions
+          }
+        ]
       },
       { test: /\.css$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader' })},
       { test: /\.(woff2?|ttf|eot|svg)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
