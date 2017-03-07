@@ -15,6 +15,7 @@ function ValidationMessagesController() {
 }
 
 angular.module('app').component('validationMessages', {
+  restrict: 'E',
   templateUrl: templateUrl,
   controller: ValidationMessagesController,
   bindings: {
