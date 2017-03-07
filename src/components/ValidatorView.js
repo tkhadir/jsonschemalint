@@ -298,7 +298,10 @@ function ValidatorViewController($scope, $rootScope, $log, $http, $window, $q, $
 }
 
 angular.module('app').component('validatorView', {
-  restrict: 'E',
   templateUrl: templateUrl,
-  controller: ValidatorViewController
+  controller: ValidatorViewController,
+  controllerAs: "$ctrl",
+  restrict: 'E',
+  bindToController: {},
+  scope: {}
 });
