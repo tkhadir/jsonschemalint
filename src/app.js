@@ -43,3 +43,5 @@ angular.module('app', [require('angular-sanitize'), require('angular-route'), re
 
 require('./services');
 require('./components');
+
+angular.bootstrap(document.body, ['app']);
